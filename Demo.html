@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Demo</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<link type="text/css" rel="stylesheet" href="main.css">
+	<audio loop id="music" src="./Media/rock-it-21275.mp3"></audio>
+	<video id="video1" style="display: none;">
+		<source src="./Media/future_texture.mp4" type="video/mp4">
+	</video>
+</head>
+
+<body>
+	<!-- Import maps polyfill -->
+	<!-- Remove this when import maps will be widely supported -->
+	
+	<link rel="stylesheet" href="https://unpkg.com/handsfree@8.5.1/build/lib/assets/handsfree.css" />
+    <!-- <script src="https://unpkg.com/handsfree@8.5.1/build/lib/handsfree.js"></script> -->
+	<script src="handsfree-master/build/lib/handsfree.js"></script>
+	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.5.1/dat.gui.min.js"></script> -->
+	<script async src="https://unpkg.com/es-module-shims@1.3.6/dist/es-module-shims.js"></script>
+	
+	<script type="importmap">
+			{
+				"imports": {
+					"three": "./Threefiles/build/three.module.js"
+				}
+			}
+		</script>
+
+	<script type="module">
+
+		import * as THREE from 'three'
+		import { AsciiEffect } from './Threefiles/AsciiEffect.js';
+		import { introSceneCreate, introSceneUpdate, introScene, introSceneEffect } from './IntroScene.js';
+		import { endingSceneCreate, endingSceneUpdate, endingScene, endingSceneEffect } from './EndingScene.js';
+		import { createScene1, updateScene1, scene1Scene, scene1Effect } from './scene1.js';
+		import { createScene2, updateScene2, scene2Scene, scene2Effect } from './scene2.js';
+		import { createScene3, updateScene3, scene3Scene, scene3Effect } from './scene3.js';
+		import { createScene4, updateScene4, scene4Scene, scene4Effect } from './scene4.js';
+		import { createScene5, updateScene5, scene5Scene, scene5Effect } from './scene5.js';
+		// import { createScene6, updateScene6, scene6Scene, scene6Effect } from './scene6.js';
+		// import { createScene7, updateScene7, scene7Scene, scene7Effect } from './scene7.js';
+		import { createScene8, updateScene8, scene8Scene, scene8Effect } from './scene8.js';
+		//import { createScene9, updateScene9, scene9Scene, scene9Effect } from './scene9.js';
+		//import { createScene10, updateScene10, scene10Scene, scene10Effect } from './scene10.js';
+		import { GLTFLoader } from '/Threefiles/GLTFLoader.js';
+
+		// Webcam initialize
+		var video = document.createElement('video');
+		video.width = 320;
+		video.height = 240;
+		video.autoplay = true;
+
+		if (navigator.mediaDevices.getUserMedia) {
+			navigator.mediaDevices.getUserMedia({ video: true })
+				.then(function (stream) {
+					video.srcObject = stream;
+				})
+				.catch(function (err0r) {
+					console.log("Something went wrong!");
+				});
+		}
+
+		// Web Audio API
+		let audioElement = document.getElementById("music");
+		let audioCtx = new AudioContext();
+		let analyzer = audioCtx.createAnalyser();
+		analyzer.maxDecibels = -5;
+		analyzer.fftSize = 8192;
+		let source = audioCtx.createMediaElementSource(audioElement);
+		source.connect(analyzer);
+		source.connect(audioCtx.destination);
+		let data = new Uint8Array(analyzer.frequencyBinCount);
+
+		// Boolean variables
+		let sceneSwitch = true;
+		let exitVideoScreen = false; 
+		let exitInteractiveScene = false; 
+		let returnToMenu = false; 
+		let audioOff = true; 
+
+		// Other variables
+		let baseTimeComparator = 15;
+		let geometry, clock, handsfree;
+
+		// Loaders
+		let canvasElement = document.getElementById('canvas');
+		let imageloader = new THREE.TextureLoader();
+		let sceneRenderer = new THREE.WebGLRenderer();
+		const loader = new GLTFLoader();
+		
+		// Camera
+		let camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 10000);
+		
+		// Start timer
+		const start = Date.now();
+
+		// Initialize handsfree
+		handsfree = new Handsfree({
+				hands: {
+					enabled: true,
+					maxNumHands: 2, 
+					minDetectionConfidence: 0.8, 
+					minTrackingConfidence: 0.4
+						}
+			});
+
+		// Create first scene
+		init();
+		// After first scene is created then initialize animation loop
+		animate();
+
+		function init() {
+			// Create a new clock
+			clock = new THREE.Clock();
+			// Create first scene
+			introSceneCreate(camera, sceneRenderer);
+			// Update renderer size
+			sceneRenderer.setSize(innerWidth, innerHeight);
+			// Event listner for 'P' - Developer operation
+			document.addEventListener('keyup', function (event) {
+				if (event.keyCode === 80) {
+					audioElement.play();
+				}
+			});
+			// Event listener for resizing browser to fullscreen or exit fullscreen
+			window.addEventListener('resize', onWindowResize);
+			document.addEventListener("keyup", function (event) {
+				// key monitored is 'F'
+				if (event.keyCode === 70) {
+					if (getFullscreenElement()) {
+						document.exitFullscreen();
+					} else {
+						document.documentElement.requestFullscreen();
+					}
+				}
+			});
+
+		}
+		// Full screen methods 
+		function getFullscreenElement() {
+			return document.fullscreenElement   //standard property
+				|| document.webkitFullscreenElement //safari/opera support
+				|| document.mozFullscreenElement    //firefox support
+				|| document.msFullscreenElement;    //ie/edge support
+		}
+
+		function toggleFullscreen() {
+			if (getFullscreenElement()) {
+				document.exitFullscreen();
+			}
+		}
+		function onWindowResize() {
+
+			camera.aspect = window.innerWidth / window.innerHeight;
+			camera.updateProjectionMatrix();
+
+			sceneRenderer.setSize(window.innerWidth, window.innerHeight);
+		}
+
+
+		// Animation loop
+		function animate() {
+			// Request next frame in animation
+			requestAnimationFrame(animate);
+			// Render current instace of scene
+			render();
+		}
+		// NOTE: to tell when to create a new scene the variable sceneSwitch is alternated
+		// If it is set to true after the creation of one scene then it will be set to false after 
+		// creation of the following scene. -- Meant to creatively use one variable instead of multiple
+		// variables once. 
+		function render() {
+			// Update timer
+			const timer = Date.now() - start;
+			// Divide so time can be monitored in seconds
+			let seconds = timer / 1000;
+			// Update audio data
+			analyzer.getByteFrequencyData(data);
+			// Start playing audio after 13.5 seconds
+			if (seconds > 13.5) {
+				if (audioOff == true) {
+					audioElement.play();
+					audioOff = false; 
+				}
+			}
+			// Introduction scene logic
+			if (seconds < baseTimeComparator+10) {
+				introSceneUpdate(seconds, data, camera, introScene, sceneRenderer, introSceneEffect);
+			}
+			// Scene 1 logic
+			else if (seconds > baseTimeComparator+10 && seconds < baseTimeComparator + 17) {
+				if (sceneSwitch == true) {
+					createScene1(camera, sceneRenderer);
+					sceneSwitch = false;
+				}
+				updateScene1(seconds, data, camera, sceneRenderer);
+			}
+			// Scene 2 logic
+			else if (seconds > baseTimeComparator + 17 && seconds < baseTimeComparator + 25) {
+				if (sceneSwitch == false) {
+					document.body.removeChild(scene1Effect.domElement);
+					//console.log("scene 2 time")
+					createScene2(camera, sceneRenderer);
+					sceneSwitch = true;
+				}
+				updateScene2(seconds, data, camera, scene2Scene, sceneRenderer, scene2Effect)
+			}
+			// Scene 3 logic 
+			else if (seconds > baseTimeComparator + 25 && seconds < baseTimeComparator + 35) {
+
+				if (sceneSwitch == true) {
+					//console.log("scene 3 time");
+					camera.rotation.x = 0;
+					geometry = createScene3(camera, sceneRenderer);
+					sceneSwitch = false;
+				}
+				const time = clock.getElapsedTime() * 10;
+				updateScene3(time, data, camera, scene3Scene, sceneRenderer, scene3Effect, start, geometry);
+			} 
+			// Scene 4 logic
+			else if (seconds > baseTimeComparator + 35 && seconds < baseTimeComparator + 43) {
+				if (sceneSwitch == false) {
+					createScene4(camera, sceneRenderer);
+					//console.log("scene 4 time");
+					sceneSwitch = true;
+				}
+				updateScene4(seconds, data, camera, scene4Scene, sceneRenderer, scene4Effect);
+			}
+			// Scene 5 logic
+			 else if (seconds> baseTimeComparator + 43 && exitVideoScreen == false) {
+				if (sceneSwitch == true) {
+					//console.log("scene 5 time");
+					createScene5(camera, sceneRenderer, video);
+					sceneSwitch = false;
+					handsfree.start();
+				}
+				exitVideoScreen = updateScene5(seconds, data, camera, scene5Scene, sceneRenderer, scene5Effect, handsfree);
+
+			} 
+			// Scene 8 logic
+			 else if (exitVideoScreen == true && exitInteractiveScene == false) {
+				
+				if (sceneSwitch == false) {
+					// switch scene here
+					document.body.removeChild(scene5Effect.domElement);
+					createScene8(camera, sceneRenderer);
+					//console.log("scene 8 time");
+					sceneSwitch = true; 
+				}
+				exitInteractiveScene =  updateScene8(seconds, data, camera, scene8Scene, sceneRenderer, scene8Effect, handsfree);
+				
+			} 
+			// Ending Scene logic
+			else if (exitInteractiveScene == true) {
+				if (sceneSwitch == true) {
+					handsfree.pause();
+					endingSceneCreate(camera, sceneRenderer, audioElement, seconds);
+					sceneSwitch = false;
+				}
+				returnToMenu = endingSceneUpdate(seconds, data, camera, endingScene, sceneRenderer, endingSceneEffect, audioElement);
+			} 
+			if (returnToMenu == true) {
+				// Go back to main menu
+				location.href = "./Main.html";
+			}
+		}
+
+	</script>
+
+</body>
+
+</html>

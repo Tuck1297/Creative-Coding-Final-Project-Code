@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <audio loop id="music" src="rock-it-21275.mp3"></audio>
+  </head>
+  <body>
+	<script type="module"> 
+
+const sound = document.getElementById('music');
+sound.play();
+const fadeAudio = setInterval(() => {
+  const fadePoint = sound.duration - 5;
+  console.log(fadePoint)
+  if ((sound.currentTime >= fadePoint) && (sound.volume !== 0)) {
+    sound.volume -= 0.1
+  }
+
+  if (sound.volume < 0.003) {
+    clearInterval(fadeAudio);
+  }
+}, 200);
+
+    </script> 
+  </body>
+</html>

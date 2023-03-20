@@ -1,5 +1,5 @@
 import * as THREE from './Threefiles/build/three.module.js';
-import { GLTFLoader } from '/Threefiles/GLTFLoader.js';
+import { GLTFLoader } from './Threefiles/GLTFLoader.js';
 
 let introScene, introSceneEffect, desktop, chair;
 let introPlane, introPlane2;

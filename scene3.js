@@ -51,7 +51,7 @@ function createScene3(camera, renderer) {
             value: 0.0
         },
         tExplosion: {
-            value: THREE.ImageUtils.loadTexture('/Media/texture3.jpg')
+            value: THREE.ImageUtils.loadTexture('./Media/texture3.jpg')
         }
     }
 

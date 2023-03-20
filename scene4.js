@@ -2,7 +2,7 @@ import * as THREE from './Threefiles/build/three.module.js';
 import vShader from './shaders/vertexShader.glsl.js';
 import fShader from './shaders/fragmentShader.glsl.js';
 import { AsciiEffect } from './Threefiles/AsciiEffect.js';
-import { GLTFLoader } from '/Threefiles/GLTFLoader.js';
+import { GLTFLoader } from './Threefiles/GLTFLoader.js';
 // tron bike scene
 let scene4Scene, scene4Effect, gridHelper
 let car = null;

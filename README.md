@@ -1,5 +1,20 @@
-## Creative Coding Final Project - Spring 2021 Semester
-University of St. Thomas
+![Creative Coding Demo Main Page](creative_min.jpg)
+![Creative Coding Perlin Noise Sphere](creative_min_3.jpg)
+![Creative Coding Interactive Perlin Noise Cube](creative_min_4.jpg)
+
+## Interaction with Graphics - Creative Coding Final Project (Spring 2021)
+Creator: Tucker Johnson
+University: University of St. Thomas
+
+# Technologies Used to Create this project
+- Three.js
+- Handsfree.js
+- Web Audio API
+- Blender
+- Gimp (Graphic Image Manipulation Program)
+- Visual Studio Code
+- JavaScript
+- HTML
 
 # Description
  Interaction with Graphics is a multimedia installation that immerses the audience in the virtual 
@@ -15,11 +30,16 @@ by using Web Audio API and hand interaction through the library called HandsFree
 
 # Plug and Play
 
-This project is one that I currently do not have available to run in the browser hosted on Github 
-due to there being CORS restrictions and errors that surface. Therefore, to plug and play this project
-you will need to clone this project to your browser and run the local host server that is configured
-in your IDE. Visual Studio Code has great 'Live Server' plugins that make step-up and running this 
-repo's code a breeze. 
+This project is one that is currently not available to run in the browser due to the number of files
+and CORS restrictions. To Plug and Play this project you will need to clone this project to your local 
+environment and run the main.html file on a local host server that is configured in your IDE. Visual Studio
+Code has a great 'Live Server' plugin that makes set-up and running this repo's code a breeze. 
+
+Steps: 
+- 1. Clone the project to your local environment
+- 2. Open this project in your IDE (Recommended: Visual Studio Code)
+- 3. Launch Live Server and Choose Main.html to start
+- 4. Follow the on screen prompts and enjoy!!
 
 Please know that this assignment was one of experimental origin and was made to run specifically on 
 a newer device within its local environment. If you experience problems getting things set up and running

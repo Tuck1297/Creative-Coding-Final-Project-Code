@@ -1,6 +1,6 @@
 import * as THREE from './Threefiles/build/three.module.js';
 import { AsciiEffect } from './Threefiles/AsciiEffect3.js';
-import { GLTFLoader } from '/Threefiles/GLTFLoader.js';
+import { GLTFLoader } from './Threefiles/GLTFLoader.js';
 let endingScene, endingSceneEffect, desktop, chair, plane, plane2, plane3;
 let asciiSwitch = false;
 let removedAscii = false;

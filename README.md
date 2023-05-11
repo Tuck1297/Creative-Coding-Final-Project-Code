@@ -27,10 +27,10 @@ environment and run the main.html file on a local host server that is configured
 Code](https://code.visualstudio.com/) has a great 'Live Server' plugin that makes set-up and running this repo's code a breeze. 
 
 Steps: 
-- 1. Clone the project to your local environment
-- 2. Open this project in your IDE 
-- 3. Launch Live Server and Choose Main.html to start
-- 4. Follow the on screen prompts and enjoy!!
+1. Clone the project to your local environment
+2. Open this project in your IDE 
+3. Launch Live Server and Choose Main.html to start
+4. Follow the on screen prompts and enjoy!!
 
 Please know that this assignment was one of experimental origin and was made to run specifically on 
 a newer device within its local environment. If you experience problems getting things set up and running

@@ -1,8 +1,8 @@
 <div align="center">
  <h1>Interaction with Graphics - Creative Coding Project</h1>
  <img src="creative_min.jpg"/>
- <img src="creative_min_3.jpg" width="400" />
- <img src="creative_min_4.jpg" width="400"/>
+ <img src="creative_min_3.jpg" width="500" />
+ <img src="creative_min_4.jpg" width="500"/>
 </div>
 
 ## Project Overview
@@ -16,27 +16,19 @@ variety of abstract and structured sequences, all of which demonstrate mathemati
 programming achievements made in the last 30 years, such as perlin noise and sophisticated 
 3-dimensional model rendering. The main objective of this endeavor is to remind its audience 
 of the past while demonstrating what the future holds.
- 
- 
+
 ---
-
-# Technologies Used to Create this project
-- Handsfree.js
-- Web Audio API
-- Blender
-
-
 
 # Plug and Play
 
 This project is one that is currently not available to run in the browser due to the number of files
 and CORS restrictions. To Plug and Play this project you will need to clone this project to your local 
-environment and run the main.html file on a local host server that is configured in your IDE. Visual Studio
-Code has a great 'Live Server' plugin that makes set-up and running this repo's code a breeze. 
+environment and run the main.html file on a local host server that is configured in your IDE. [Visual Studio
+Code](https://code.visualstudio.com/) has a great 'Live Server' plugin that makes set-up and running this repo's code a breeze. 
 
 Steps: 
 - 1. Clone the project to your local environment
-- 2. Open this project in your IDE (Recommended: Visual Studio Code)
+- 2. Open this project in your IDE 
 - 3. Launch Live Server and Choose Main.html to start
 - 4. Follow the on screen prompts and enjoy!!
 
@@ -44,8 +36,7 @@ Please know that this assignment was one of experimental origin and was made to 
 a newer device within its local environment. If you experience problems getting things set up and running
 please contact me with your questions and concerns. 
 
-
-Creative coding is a concept where one moves away from creating a program for purposes of accomplishing a task. Instead it focuses on reflecting one's own perspective and thoughts through their code. This project aimed at accomplishing these tasks by building a interaction based project that allows one to take in and eventually interact with a virtual environment in a couple of different ways. They include through sight, sound and hand tracking. This project utilized a 3D JavaScript library called Three.js to accomplish the graphics while relying on a JS library called Handsfree.js for the hand tracking. If you have a moment this project is one that I would certainly recommend checking out.
+---
 
 ## Languages and Tools Used
 <div>

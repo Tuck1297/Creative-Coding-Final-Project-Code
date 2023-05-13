@@ -48,7 +48,7 @@ please contact me with your questions and concerns.
   <img src="https://github.com/devicons/devicon/blob/master/icons/threejs/threejs-original-wordmark.svg" title="threejs" **alt="threejs" width="60" height="60"/>
   <img src="https://github.com/devicons/devicon/blob/master/icons/vscode/vscode-original.svg" title="vscode" **alt="vscode" width="60" height="60"/>
   <img src="https://github.com/devicons/devicon/blob/master/icons/gimp/gimp-original-wordmark.svg" title="Gimp" **alt="Gimp" width="60" height="60"/>
-  <img src="https://github.com/Tuck1297/Creative-Coding-Final-Project-Code/blob/main/handsfree.jpg" title="Handsfree.js" **alt="Handsfree.js" width="60" />
+  <img src="https://github.com/Tuck1297/Creative-Coding-Final-Project-Code/blob/main/handsfree.jpg" title="Handsfree.js" **alt="Handsfree.js" height="60" width="240" />
  <img src="https://upload.wikimedia.org/wikipedia/commons/0/0c/Blender_logo_no_text.svg" title="Blender" **alt="Blender" height="60" />
 </div>
 
